@@ -1,0 +1,14 @@
+name: deploy
+
+on:
+  workflow_run:
+    workflows: ["build"]
+    type: "completed"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # Just dump all the context there is to see what we can use to link back to a fork
+      - name: dump context
+        uses: crazy-max/ghaction-dump-context@v1
