@@ -3,10 +3,16 @@ name: deploy
 on:
   pull_request_target:
 
+permissions:
+  id-token: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: get oidc
+        run: >
+          curl -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=self"
       # Just dump all the context there is to see what we can use to link back to a fork
       - name: dump context
         uses: crazy-max/ghaction-dump-context@v1
